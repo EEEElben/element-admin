@@ -6,7 +6,7 @@
     </div>
     <div class="main">
       <el-button type="success" icon="el-icon-plus" size="small" @click="addNew">添加</el-button>
-      <el-dialog :title="dialogTitle" :visible.sync="dialogFormVisible" :close-on-click-modal="false">
+      <el-dialog :title="dialogTitle" :visible.sync="dialogFormVisible" :close-on-click-modal="false" center>
         <el-form :model="form">
           <el-form-item label="名称：" :label-width="formLabelWidth">
             <el-input v-model="form.title" autocomplete="off"></el-input>

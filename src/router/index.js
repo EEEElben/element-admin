@@ -10,7 +10,7 @@ const classifyMgt = () => import('../views/mainCon/contentMgt/classifyMgt.vue');
 const advertList = () => import('../views/mainCon/advertising/advertList.vue');
 const advertTYPE = () => import('../views/mainCon/advertising/advertType.vue');
 
-const login = () => import('../views/mainCon/systemMgt/login.vue');
+const loginLog = () => import('../views/mainCon/systemMgt/loginLog.vue');
 const adminList = () => import('../views/mainCon/systemMgt/adminList.vue');
 const abnormal = () => import('../views/mainCon/systemMgt/abnormal.vue');
 const roleMgt = () => import('../views/mainCon/systemMgt/roleMgt.vue');
@@ -60,9 +60,9 @@ const routes = [{
         component: advertTYPE,
       },
       {
-        path: 'login',
-        name: 'login',
-        component: login,
+        path: 'loginLog',
+        name: 'loginLog',
+        component: loginLog,
       },
       {
         path: 'adminList',

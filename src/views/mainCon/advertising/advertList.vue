@@ -31,7 +31,7 @@
         <template slot-scope="scope">
           <div class="operate">
             <i class="el-icon-edit" @click="compile(scope.row)"></i>
-            <i class="el-icon-delete" @click="delete(scope.row)"></i>
+            <i class="el-icon-delete" @click="deleteIt(scope.row)"></i>
           </div>
         </template>
       </el-table-column>
@@ -162,6 +162,27 @@
       //页码发生改变触发
       curClick(e) {
         console.log(e);
+      },
+      //删除
+      deleteIt(row) {
+        console.log(row.id);
+        this.$confirm('是否删除选中数据？', '提示', {
+          cancelButtonText: '取消',
+          confirmButtonText: '确定',
+          type: 'warning'
+        }).then(() => {
+          //调动删除接口
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          });
+          this.$refs.multipleTable.clearSelection();
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });          
+        });
       }
     }
   }

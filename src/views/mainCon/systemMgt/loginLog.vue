@@ -1,14 +1,6 @@
 <template>
   <div class="container">
     <div class="top">
-      <el-select v-model="value" placeholder="全部类型" class="firstSelect" size="medium">
-        <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
-        </el-option>
-      </el-select>
-      <el-select v-model="value1" placeholder="全部状态" class="secondSelect" size="medium">
-        <el-option v-for="item in options1" :key="item.value" :label="item.label" :value="item.value">
-        </el-option>
-      </el-select>
       <el-date-picker size="medium" v-model="startData" type="date" placeholder="选择开始日期">
       </el-date-picker>
       <el-date-picker size="medium" v-model="endData" type="date" placeholder="选择结束日期">
@@ -17,7 +9,6 @@
       <el-button type="primary" icon="el-icon-search" size="medium">查询</el-button>
     </div>
     <div class="main">
-      <el-button type="primary" icon="el-icon-check" size="small" @click="dispose">批量处理</el-button>
       <el-button type="danger" icon="el-icon-delete" size="small" @click="deleteItems">批量删除</el-button>
     </div>
     <el-table @select="chooseItem" @select-all="chooseAll" highlight-current-row ref="multipleTable" :data="tableList"
@@ -33,9 +24,6 @@
           <span>{{scope.row[item.prop]}}</span>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="操作" width="80px" show-overflow-tooltip>
-        <i class="el-icon-search"></i>
-      </el-table-column>
     </el-table>
     <div class="footer">
       <el-pagination background hide-on-single-page :page-size="10" layout="prev, pager, next, jumper"
@@ -50,56 +38,36 @@
     name: "advertList",
     data() {
       return {
-        //全部分类
-        options: [{
-          value: '选项1',
-          label: '黄金糕'
-        }, {
-          value: '选项2',
-          label: '双皮奶'
-        }, {
-          value: '选项3',
-          label: '蚵仔煎'
-        }, {
-          value: '选项4',
-          label: '龙须面'
-        }],
-        value: '', //分类
-        //全部状态
-        options1: [{
-          value: '选项1',
-          label: '状态'
-        }, {
-          value: '选项2',
-          label: '未审核'
-        }, {
-          value: '选项3',
-          label: '已审核'
-        }, {
-          value: '选项4',
-          label: '删除'
-        }],
-        value1: '', //状态
         startData: '', //开始日期
         endData: '', //结束日期
         inputVal: '', //名称
-        isPagination: false, //可以请求数据时判断，不足一页则不显示分页
+        isPagination: true, //可以请求数据时判断，不足一页则不显示分页
         total: 999, //总数据数，用于判断一共有多少页
-        checkedList: [], //选中要操作的内容
+        checkedList: [], //选中的每一行
         tableHeader: [{
-            label: "分类",
-            prop: "order",
-            width: "100"
-          },
-          {
             label: "标题",
             prop: "title",
             width: ""
           },
           {
-            label: "状态",
-            prop: "state",
-            width: "100px"
+            label: "系统",
+            prop: "system",
+            width: "120px"
+          },
+          {
+            label: "浏览器",
+            prop: "browser",
+            width: "220px"
+          },
+          {
+            label: "宽度",
+            prop: "width",
+            width: "70px"
+          },
+          {
+            label: "高度",
+            prop: "height",
+            width: "70px"
           },
           {
             label: "日期",
@@ -110,23 +78,92 @@
         tableList: [{
             id: '1',
             title: '测一侧测一侧',
+            system: 'Windows',
+            browser: 'Chrome 87.0.4280.88',
+            width: '150',
+            height: '140',
             data: '2020-12-24 06:06',
-            order: '异常日志',
-            state: '启用'
           },
           {
             id: '2',
-            title: '测一侧测一侧2sdadas',
+            title: '测一侧测一侧',
+            system: 'Windows',
+            browser: 'Chrome 87.0.4280.88',
+            width: '150',
+            height: '140',
             data: '2020-12-24 06:06',
-            order: '异常日志',
-            state: '启用'
           },
           {
             id: '3',
-            title: '测一侧测一侧3',
+            title: '测一侧测一侧',
+            system: 'Windows',
+            browser: 'Chrome 87.0.4280.88',
+            width: '150',
+            height: '140',
             data: '2020-12-24 06:06',
-            order: '异常日志',
-            state: '启用'
+          },
+          {
+            id: '4',
+            title: '测一侧测一侧',
+            system: 'Windows',
+            browser: 'Chrome 87.0.4280.88',
+            width: '150',
+            height: '140',
+            data: '2020-12-24 06:06',
+          },
+          {
+            id: '5',
+            title: '测一侧测一侧',
+            system: 'Windows',
+            browser: 'Chrome 87.0.4280.88',
+            width: '150',
+            height: '140',
+            data: '2020-12-24 06:06',
+          },
+          {
+            id: '6',
+            title: '测一侧测一侧',
+            system: 'Windows',
+            browser: 'Chrome 87.0.4280.88',
+            width: '150',
+            height: '140',
+            data: '2020-12-24 06:06',
+          },
+          {
+            id: '7',
+            title: '测一侧测一侧',
+            system: 'Windows',
+            browser: 'Chrome 87.0.4280.88',
+            width: '150',
+            height: '140',
+            data: '2020-12-24 06:06',
+          },
+          {
+            id: '8',
+            title: '测一侧测一侧',
+            system: 'Windows',
+            browser: 'Chrome 87.0.4280.88',
+            width: '150',
+            height: '140',
+            data: '2020-12-24 06:06',
+          },
+          {
+            id: '9',
+            title: '测一侧测一侧',
+            system: 'Windows',
+            browser: 'Chrome 87.0.4280.88',
+            width: '150',
+            height: '140',
+            data: '2020-12-24 06:06',
+          },
+          {
+            id: '10',
+            title: '测一侧测一侧',
+            system: 'Windows',
+            browser: 'Chrome 87.0.4280.88',
+            width: '150',
+            height: '140',
+            data: '2020-12-24 06:06',
           }
         ],
       }
@@ -135,51 +172,6 @@
       //页码发生改变触发
       curClick(e) {
         console.log(e);
-      },
-      //选择某一项
-      chooseItem(selection) {
-        this.checkedList = [];
-        for (let i of selection) {
-          this.checkedList.push(i.id);
-        }
-        console.log(this.checkedList)
-      },
-      //全选
-      chooseAll(e) {
-        this.checkedList = []
-        for (let i of e) {
-          this.checkedList.push(i.id);
-        }
-        console.log(this.checkedList)
-      },
-      //批量处理
-      dispose() {
-        if (this.checkedList.length === 0) {
-          this.$message({
-            message: '请先选择数据！',
-            type: 'warning',
-            showClose: true,
-            offset: 50
-          })
-        } else {
-          this.$confirm('是否把选中数据设为已处理？', '提示', {
-            cancelButtonText: '取消',
-            confirmButtonText: '确定',
-            type: 'warning'
-          }).then(() => {
-            //调动删除接口
-            this.$message({
-              type: 'success',
-              message: '删除成功!'
-            });
-            this.$refs.multipleTable.clearSelection();
-          }).catch(() => {
-            this.$message({
-              type: 'info',
-              message: '已取消删除'
-            });
-          });
-        }
       },
       //批量删除
       deleteItems() {
@@ -210,6 +202,20 @@
             });
           });
         }
+      },
+      //选择某一项
+      chooseItem(selection) {
+        this.checkedList = [];
+        for (let i of selection) {
+          this.checkedList.push(i.id);
+        }
+      },
+      //全选
+      chooseAll(e) {
+        this.checkedList = []
+        for (let i of e) {
+          this.checkedList.push(i.id);
+        }
       }
     }
   }
@@ -228,7 +234,7 @@
 
   .firstSelect,
   .secondSelect {
-    width: 120px;
+    width: 100px;
     margin-right: 10px;
   }
 

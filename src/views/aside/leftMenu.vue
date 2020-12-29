@@ -49,7 +49,7 @@
           icon: 'el-icon-s-tools',
           subList: [{
             name: '登录日志',
-            path: '/home/login'
+            path: '/home/loginLog'
           }, {
             name: '异常日志',
             path: '/home/abnormal'

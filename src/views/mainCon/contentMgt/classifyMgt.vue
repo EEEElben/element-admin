@@ -7,7 +7,7 @@
         <el-button type="success" icon="el-icon-plus" size="small" @click="addNew">添加</el-button>   
         <el-button type="primary" icon="el-icon-plus" size="small" @click="compile">编辑</el-button>
         <el-button type="danger" icon="el-icon-delete" size="small" @click="() => remove()">>删除</el-button>
-        <el-dialog :title="dialogTitle" :visible.sync="dialogFormVisible" :close-on-click-modal="false">
+        <el-dialog :title="dialogTitle" :visible.sync="dialogFormVisible" :close-on-click-modal="false" center>
           <el-form :model="form">
             <el-form-item label="标题：" :label-width="formLabelWidth">
               <el-input v-model="form.head" autocomplete="off"></el-input>
@@ -45,7 +45,7 @@
   export default {
     data() {
       return {
-        dialogFormVisible: false,  //添加的弹出框
+        dialogFormVisible: false,  //弹出框显示
         formLabelWidth: '120px',   //宽度
         checkData:'',   //选中的树节点
         checkNode:'',   //选中树节点node
@@ -146,6 +146,7 @@
         this.form ={}
         console.log(this.form)
       },
+      //选中某一行触发
       handleNodeClick(data,node) {
         console.log(node)
         console.log(data.$treeNodeId)
@@ -164,7 +165,7 @@
           this.$message({
             showClose: true,
             message: '请选择一个节点再进行操作',
-            type: 'error'
+            type: 'warning'
           });
           return;
         }
@@ -180,7 +181,7 @@
            this.$message({
             showClose: true,
             message: '请选择要删除的节点',
-            type: 'error'
+            type: 'warning'
           });
           return;
         };
