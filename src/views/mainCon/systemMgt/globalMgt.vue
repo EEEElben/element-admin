@@ -20,7 +20,7 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="submitForm('ruleForm')">{{dialogfooter}}</el-button>
+        <el-button type="primary" @click="submitForm('ruleForm')">{{dialogConfirm}}</el-button>
         <el-button @click="resetForm('ruleForm')">取 消</el-button>
       </div>
     </el-dialog>
@@ -73,19 +73,19 @@
           },
         ],
         tableList: [{
-            id:1,
+            id: 1,
             title: '测一侧测一侧',
             num: '',
             value: 'ds123',
           },
           {
-            id:2,
+            id: 2,
             title: '测一侧测一侧',
             num: '2',
             value: 'ds123',
           },
           {
-            id:3,
+            id: 3,
             title: '测一侧测一侧',
             num: '',
             value: 'ds123',
@@ -93,15 +93,15 @@
         ],
         isPagination: false, //可以请求数据时判断，不足一页则不显示分页
         total: 999, //总数据数，用于判断一共有多少页
-        dialogTitle:'',  //弹出dialog的标题
-        dialogfooter:'', //弹出dialog的确定按钮
-        dialogFormVisible:false,  //dialog是否显示
-        ruleForm:{
-          title:'',
-          num:'',
-          value:''
+        dialogTitle: '', //弹出dialog的标题
+        dialogConfirm: '', //弹出dialog的确定按钮
+        dialogFormVisible: false, //dialog是否显示
+        ruleForm: {
+          title: '',
+          num: '',
+          value: ''
         },
-        formLabelWidth:'90px',
+        formLabelWidth: '90px',
         rules: { //表单验证
           title: [{
             required: true,
@@ -124,7 +124,7 @@
       //添加
       addNew() {
         this.dialogTitle = "添加";
-        this.dialogfooter = "添加";
+        this.dialogConfirm = "添加";
         this.dialogFormVisible = true;
         console.log(1)
       },
@@ -155,7 +155,7 @@
         this.ruleForm.num = e.num;
         this.ruleForm.value = e.value;
         this.dialogTitle = '编辑';
-        this.dialogfooter = '修改' 
+        this.dialogConfirm = '修改'
         this.dialogFormVisible = true;
       }
     }

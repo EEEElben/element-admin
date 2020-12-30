@@ -1,19 +1,22 @@
 <template>
   <div>
-    <el-menu class="el-menu-vertical-demo" unique-opened router :collapse="isCollapse" background-color="#515a6e"
-      text-color="#cbced4" :collapse-transition='false' active-text-color="#ffd04b" :default-active="activePath">
-      <el-submenu v-for="(item,index) in list" :key="index" :index="index+1+''">
-        <template slot="title">
-          <i :class="item.icon"></i>
-          <span>{{item.name}}</span>
-        </template>
-        <el-menu-item v-for="(subItem,subIndex) in item.subList" :key="subIndex" :index="subItem.path"
-          @click="saveNavState(subItem)">{{subItem.name}}</el-menu-item>
-      </el-submenu>
-    </el-menu>
-    <div class="collapse" :style="{'width':isCollapse?'64px':'200px'}" @click="changeCollapse">
-      <i class="el-icon-arrow-left" style="color:#FFFFFF;" :class="rotate" ref='icon'></i>
-    </div>
+    <el-scrollbar style="height:100%">
+      <el-menu class="el-menu-vertical-demo" unique-opened router :collapse="isCollapse" background-color="#515a6e"
+        text-color="#cbced4" :collapse-transition='false' active-text-color="#ffd04b" :default-active="activePath">
+        <el-submenu v-for="(item,index) in list" :key="index" :index="index+1+''">
+          <template slot="title">
+            <i :class="item.icon"></i>
+            <span>{{item.name}}</span>
+          </template>
+          <el-menu-item v-for="(subItem,subIndex) in item.subList" :key="subIndex" :index="subItem.path"
+            @click="saveNavState(subItem)">{{subItem.name}}</el-menu-item>
+        </el-submenu>
+      </el-menu>
+
+      <div class="collapse" :style="{'width':isCollapse?'64px':'200px'}" @click="changeCollapse">
+        <i class="el-icon-arrow-left" style="color:#FFFFFF;" :class="rotate" ref='icon'></i>
+      </div>
+    </el-scrollbar>
   </div>
 </template>
 
@@ -97,7 +100,7 @@
   }
 </script>
 
-<style>
+<style scoped>
   .el-menu-item {
     background-color: #363e4f !important;
   }

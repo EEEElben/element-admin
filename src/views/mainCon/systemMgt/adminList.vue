@@ -14,8 +14,9 @@
       <el-button type="primary" icon="el-icon-search" size="medium">查询</el-button>
     </div>
     <div class="main">
-      <el-button type="success" icon="el-icon-plus" size="small" @click="dialogFormVisible = true">添加</el-button>
-      <el-dialog title="编辑" :visible.sync="dialogFormVisible" width="50%" top="5vh" :close-on-click-modal="false" center>
+      <el-button type="success" icon="el-icon-plus" size="small" @click="addNew">添加</el-button>
+      <el-dialog title="编辑" :visible.sync="dialogFormVisible" width="50%" top="5vh" :close-on-click-modal="false"
+        center>
         <el-form :model="adminForm" :rules="rules" :inline="true" ref="adminForm">
           <el-form-item label="用户名：" :label-width="formLabelWidth" prop="user">
             <el-input v-model="adminForm.user" autocomplete="off" size="medium"></el-input>
@@ -41,9 +42,9 @@
               <el-option label="弟弟" value="beijing"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="性别：" :label-width="formLabelWidth">
-            <el-radio v-model="adminForm.sex" label="1">男</el-radio>
-            <el-radio v-model="adminForm.sex" label="2">女</el-radio>
+          <el-form-item label="性别：" :label-width="formLabelWidth" style="margin-left:-10px">
+            <el-radio v-model="adminForm.sex" label="男">男</el-radio>
+            <el-radio v-model="adminForm.sex" label="女">女</el-radio>
           </el-form-item>
           <el-form-item label="QQ：" :label-width="formLabelWidth">
             <el-input v-model="adminForm.qq" autocomplete="off"></el-input>
@@ -55,14 +56,14 @@
             <el-input v-model="adminForm.idcard" autocomplete="off"></el-input>
           </el-form-item>
           <el-form-item label="状态：" :label-width="formLabelWidth">
-            <el-radio v-model="adminForm.state" label="1">未审核</el-radio>
-            <el-radio v-model="adminForm.state" label="2">已审核</el-radio>
-            <el-radio v-model="adminForm.state" label="3">已禁用</el-radio>
-            <el-radio v-model="adminForm.state" label="4">已删除</el-radio>
+            <el-radio v-model="adminForm.state" label="未审核">未审核</el-radio>
+            <el-radio v-model="adminForm.state" label="已审核">已审核</el-radio>
+            <el-radio v-model="adminForm.state" label="已禁用">已禁用</el-radio>
+            <el-radio v-model="adminForm.state" label="已删除">已删除</el-radio>
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
-          <el-button type="primary" @click="submitForm('adminForm')">添 加</el-button>
+          <el-button type="primary" @click="submitForm('adminForm')">{{dialogConfirm}}</el-button>
           <el-button @click="resetForm('adminForm')">取 消</el-button>
         </div>
       </el-dialog>
@@ -78,7 +79,9 @@
       <el-table-column v-for="(item,index) in tableHeader" :key="index" :label="item.label" :width="item.width"
         align="center">
         <template slot-scope="scope">
-          <span>{{scope.row[item.prop]}}</span>
+          <span v-if="scope.row[item.prop]==='已删除'" style="color:red">{{scope.row[item.prop]}}</span>
+          <span v-else-if="scope.row[item.prop]==='已审核'" style="color:green">{{scope.row[item.prop]}}</span>
+          <span v-else>{{scope.row[item.prop]}}</span>
         </template>
       </el-table-column>
       <el-table-column align="center" label="操作" width="80px" show-overflow-tooltip>
@@ -137,6 +140,7 @@
         phoneNum: '', //手机号
         checkedList: [], //选中要操作的内容
         dialogFormVisible: false, //添加的弹出框
+        dialogConfirm: '', //dialog确定按钮显示的字
         tableHeader: [{
             label: "用户名",
             prop: "user",
@@ -182,6 +186,7 @@
             role: '超级管理员',
             state: '已审核',
             data: '2020-12-24 06:06',
+            psw: ''
           },
           {
             id: 2,
@@ -192,6 +197,7 @@
             role: '超级管理员',
             state: '已审核',
             data: '2020-12-24 06:06',
+            psw: ''
           },
           {
             id: 3,
@@ -202,6 +208,7 @@
             role: '超级管理员',
             state: '未审核',
             data: '2020-12-24 06:06',
+            psw: ''
           }
         ],
         formLabelWidth: '110px', //表单宽
@@ -308,12 +315,13 @@
           });
         })
       },
-      //添加
+      //确定添加
       submitForm(formName) {
         console.log(formName);
         this.$refs[formName].validate((valid) => {
           if (valid) {
             //这里调接口
+            console.log(this.adminForm)
             alert('submit!');
             this.adminForm = {};
             this.dialogFormVisible = false;
@@ -327,6 +335,22 @@
         this.$refs[formName].resetFields();
         this.adminForm = {};
         this.dialogFormVisible = false;
+      },
+      addNew() {
+        this.dialogConfirm = "添加";
+        this.dialogFormVisible = true;
+      },
+      compile(row) {
+        console.log(row)
+        this.adminForm.data = row.data;
+        this.adminForm.name = row.name;
+        this.adminForm.id = row.id;
+        this.adminForm.user = row.user;
+        this.adminForm.state = row.state;
+        this.adminForm.role = row.role;
+        this.adminForm.nick = row.nick;
+        this.dialogFormVisible = true;
+        this.dialogConfirm = "修改";
       }
     }
   }

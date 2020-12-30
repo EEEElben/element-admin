@@ -19,12 +19,12 @@
         <el-input v-model="formLabelAlign.js" type="textarea" style="width:95%" :rows="6"></el-input>
       </el-form-item>
       <div class="btn">
-        <el-button type="primary" @click="submitForm('formLabelAlign')" >提交</el-button>
+        <el-button type="primary" @click="submitForm('formLabelAlign')">提交</el-button>
       </div>
     </el-form>
   </div>
 </template>
- 
+
 <script>
   export default {
     data() {
@@ -37,12 +37,16 @@
           js: ' '
         },
         rules: {
-          name: [
-            { required: true, message: '活动名称不能为空', trigger: 'blur' }
-          ],
-          title: [
-            { required: true, message: '标题不能为空', trigger: 'blur' }
-          ]
+          name: [{
+            required: true,
+            message: '活动名称不能为空',
+            trigger: 'blur'
+          }],
+          title: [{
+            required: true,
+            message: '标题不能为空',
+            trigger: 'blur'
+          }]
         }
       }
     },
@@ -60,20 +64,22 @@
     }
   }
 </script>
- 
-<style scoped lang = "scss">
+
+<style scoped lang="scss">
   .container {
     margin: 20px;
     border: 1px solid #dddddd;
-    .title{
+
+    .title {
       padding: 10px;
       background-color: #f5f5f5;
       font-size: 14px;
       font-weight: bold;
     }
   }
-  .btn{
-    display:flex;
+
+  .btn {
+    display: flex;
     justify-content: center;
     align-items: center;
     margin-bottom: 20px;

@@ -18,9 +18,9 @@
 </template>
 
 <script>
-  import leftMenu from './aside/leftMenu.vue'
-  import headerNav from './header/headerNav.vue'
-  import Breadcrumb from './mainCon/Breadcrumb.vue'
+  import leftMenu from '@/views/aside/leftMenu.vue'
+  import headerNav from '@/views/header/headerNav.vue'
+  import Breadcrumb from '@/views/mainCon/Breadcrumb.vue'
   export default {
     name: 'Home',
     components: {
@@ -55,7 +55,7 @@
 
   .el-aside {
     background-color: $bgcolor;
-    height: calc(100vh - 60px - 48px);
+     height: calc(100vh - 60px - 48px);
   }
 
   .el-main {

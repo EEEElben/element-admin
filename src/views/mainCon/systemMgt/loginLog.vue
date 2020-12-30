@@ -188,6 +188,7 @@
             confirmButtonText: '确定',
             type: 'warning'
           }).then(() => {
+            console.log(this.checkedList)
             //调动删除接口
             this.$message({
               type: 'success',

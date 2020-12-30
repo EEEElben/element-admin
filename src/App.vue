@@ -7,6 +7,10 @@
 <style>
   @import "./assets/css/base.css";
 
+  .el-table,.el-form-item__label {
+      font-size: 13px !important;
+  }
+
   .el-table th.gutter {
     display: table-cell !important;
   }
@@ -25,5 +29,9 @@
 
   i:hover {
     cursor: pointer;
+  }
+  
+  .el-scrollbar__wrap {
+    height: 120% !important;
   }
 </style>

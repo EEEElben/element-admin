@@ -30,7 +30,9 @@
       <el-table-column v-for="(item,index) in tableHeader" :key="index" :label="item.label" :width="item.width"
         align="center">
         <template slot-scope="scope">
-          <span>{{scope.row[item.prop]}}</span>
+          <span v-if="scope.row[item.prop]==='未处理'" style="color:red">{{scope.row[item.prop]}}</span>
+          <span v-else-if="scope.row[item.prop]==='已处理'" style="color:green">{{scope.row[item.prop]}}</span>
+          <span v-else>{{scope.row[item.prop]}}</span>
         </template>
       </el-table-column>
       <el-table-column align="center" label="操作" width="80px" show-overflow-tooltip>
@@ -112,14 +114,14 @@
             title: '测一侧测一侧',
             data: '2020-12-24 06:06',
             order: '异常日志',
-            state: '启用'
+            state: '未处理'
           },
           {
             id: '2',
             title: '测一侧测一侧2sdadas',
             data: '2020-12-24 06:06',
             order: '异常日志',
-            state: '启用'
+            state: '已处理'
           },
           {
             id: '3',

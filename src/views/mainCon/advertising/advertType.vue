@@ -7,11 +7,11 @@
     <div class="main">
       <el-button type="success" icon="el-icon-plus" size="small" @click="addNew">添加</el-button>
       <el-dialog :title="dialogTitle" :visible.sync="dialogFormVisible" :close-on-click-modal="false" center>
-        <el-form :model="form">
-          <el-form-item label="名称：" :label-width="formLabelWidth">
+        <el-form :model="form" :rules="rules" ref="form">
+          <el-form-item label="名称：" :label-width="formLabelWidth" prop="title">
             <el-input v-model="form.title" autocomplete="off"></el-input>
           </el-form-item>
-          <el-form-item label="顺序：" :label-width="formLabelWidth">
+          <el-form-item label="顺序：" :label-width="formLabelWidth" prop="order">
             <el-input v-model="form.order" autocomplete="off"></el-input>
           </el-form-item>
           <el-form-item label="备注：" :label-width="formLabelWidth">
@@ -19,13 +19,13 @@
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
-          <el-button type="primary" @click="confirm">{{dialogconfirm}}</el-button>
-          <el-button @click="cancle">取 消</el-button>
+          <el-button type="primary" @click="submitForm('form')">添 加</el-button>
+          <el-button @click="resetForm('form')">取 消</el-button>
         </div>
       </el-dialog>
     </div>
-    <el-table highlight-current-row ref="multipleTable" :data="tableList" tooltip-effect="dark"
-      style="width: 100%" :header-cell-style="{'text-align':'center',background:'#eef1f6',color:'#606266'}" border>
+    <el-table highlight-current-row ref="multipleTable" :data="tableList" tooltip-effect="dark" style="width: 100%"
+      :header-cell-style="{'text-align':'center',background:'#eef1f6',color:'#606266'}" border>
       <el-table-column align="center" type="selection" width="40">
       </el-table-column>
       <el-table-column label="序号" align="center" type="index" width="50">
@@ -103,6 +103,18 @@
           title: '',
           order: '',
           remarks: ''
+        },
+        rules: {
+          title: [{
+            required: true,
+            message: '名称不能为空',
+            trigger: 'blur'
+          }, ],
+          order: [{
+            required: true,
+            message: '顺序不能为空',
+            trigger: 'blur'
+          }, ]
         }
       }
     },
@@ -117,50 +129,39 @@
         this.dialogTitle = '添加'
         this.dialogconfirm = '添加'
       },
-      confirm() {
-        if (this.dialogTitle === '添加') {
-          if (this.form.title && this.form.order && this.form.remarks) {
-            this.tableList.push(this.form)
-            this.$message({
-              type: 'success',
-              message: '添加成功！'
-            });
+      //确定
+      submitForm(formName) {
+        console.log(formName);
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            //这里调接口
+            alert('submit!');
+            this.adminForm = {};
             this.dialogFormVisible = false;
-            this.form = {};
-            return;
+          } else {
+            console.log('error submit!!');
+            return false;
           }
-          this.$message({
-            showClose: true,
-            message: '内容不能为空！',
-            type: 'error'
-          });
-        } else {
-          //调接口完成编辑
-          this.dialogFormVisible = false;
-          this.form = {};
-        }
-      },
-      cancle() {
-        this.$message({
-          type: 'success',
-          message: '取消修改！'
         });
-        this.form = {};
+      },
+      resetForm(formName) {
+        this.$refs[formName].resetFields();
+        this.adminForm = {};
         this.dialogFormVisible = false;
       },
       compile(row) {
         console.log(row)
         this.compileId = row.id;
         this.dialogTitle = '编辑'
-          this.dialogconfirm = '修改'
-          this.dialogFormVisible = true;
-          for (let i of this.tableList) {
-            if (i.id === this.compileId) {
-              this.form.title = i.title;
-              this.form.order = i.order;
-              this.form.remarks = i.remarks;
-            }
+        this.dialogconfirm = '修改'
+        this.dialogFormVisible = true;
+        for (let i of this.tableList) {
+          if (i.id === this.compileId) {
+            this.form.title = i.title;
+            this.form.order = i.order;
+            this.form.remarks = i.remarks;
           }
+        }
       }
     }
   }
